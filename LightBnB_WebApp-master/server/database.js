@@ -70,11 +70,11 @@ exports.getUserWithId = getUserWithId;
  */
 const addUser = function (user) {
   const dbQuery = `INSERT INTO users (name,email, password) VALUES ($1,$2,$3)`
-  values = [user.name,user.email,user.password]
+  values = [user.name, user.email, user.password]
   return db.query(dbQuery, values).then(res => {
-  console.log('User added to databse!!')
-  }).catch(err=>console.log('Error inserting data',err.stack))
-
+    console.log('User added to databse!!')
+  }).catch(err => console.log('Error inserting data', err.stack))
+}
 
 /// Reservations
 

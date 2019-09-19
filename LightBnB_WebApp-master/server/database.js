@@ -27,15 +27,17 @@ db.connect(err => {
  * @return {Promise<{}>} A promise to the user.
  */
 const getUserWithEmail = function(email) {
-  const dbQuery = `SELECT email FROM users WHERE email LIKE $1`;
+  const dbQuery = `SELECT * FROM users WHERE email LIKE $1`;
   const values = [`%${email}%`];
   //Test query
   return db
     .query(dbQuery, values)
     .then(res => {
-      res.rows.forEach(user => {
-        return user;
-      });
+      if (res.rows[0]) {
+        return res.rows[0]
+      } else {
+        return null
+      }
     })
     .catch(err => {
       console.log("Query Error Getting user with email Function: ", err.stack);
@@ -75,7 +77,7 @@ const addUser = function (user) {
     console.log('User added to databse!!')
   }).catch(err => console.log('Error inserting data', err.stack))
 }
-
+exports.addUser = addUser
 /// Reservations
 
 /**
